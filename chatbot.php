@@ -6,7 +6,7 @@ $state_controller = [
 ];
 
 class bot{
-	  public $sender;
+    public $sender;
     public $phone; //User phone number
     private $name; //User display name
     public $state; //Output state
@@ -14,8 +14,8 @@ class bot{
     public $message; //Output message
 	
     public function __construct($sender, $phone, $name, $state, $memory){
-		    $this->memory = $memory;
-		    $this->state = $state;
+	$this->memory = $memory;
+	$this->state = $state;
         $this->sender = $sender;
         $this->phone = $phone;
         $this->name = $name;
