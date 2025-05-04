@@ -19,7 +19,7 @@ A simple whatsapp chatbot for answering simple queries, serves as a basic exampl
    This help the bot to remember data by storing it in memory of 100kb, the memory can be fully managed by the bot using Read / Right.
 
 2. *Processor*
-   This is the entry point of the chatbot and is were all messages will be posted. processor receives and cannot send, the data contains The message and state default state if no state is **START** which needs to point to a function in our case **START** maps to **start_bot** function
+   This is the entry point of the chatbot and is were all messages and states, default state is **START** which needs to point to a function in our case **START** maps to **start_bot** function
   
 
 3. *State controller*
