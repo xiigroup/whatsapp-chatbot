@@ -31,13 +31,14 @@ A simple whatsapp chatbot for answering simple queries, serves as a basic exampl
     	  "AUTH" => "authenticate",
     	  "MAIN" => "main_menu",
     ];
-    ````
+    ```
 
 4. *Functions*
    This is were all the magic happens funtions are programmed by you to give the bot more functions, functions need to be registered with the State Controller, function will be triggered by the processor on income **$message**.
    withing the function you will write code to process incoming $message also manage memory, state and also reply to incoming $message, You will set state to tell the bot which state to go in on next incoming message and save data in memory which you might
    need in the future.
 
+   ```
    private function start_bot(*$message*){ //$message is required,
        //here you might want to check wether or not the number is authenticated, for now lets say user is authenicated
        $authenticated = true;
@@ -52,6 +53,7 @@ A simple whatsapp chatbot for answering simple queries, serves as a basic exampl
          $this->state = "AUTH";
        }
    }
-
+   ```
+   
 6. *State*
    This is to tell the bot which funtion to trigger, used to map to function.
