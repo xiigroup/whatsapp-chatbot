@@ -14,8 +14,8 @@ class app{
     public $message; //Output message
 	
     public function __construct($sender, $phone, $name, $state, $memory){
-		$this->memory = $memory;
-		$this->state = $state;
+	$this->memory = $memory;
+	$this->state = $state;
         $this->sender = $sender;
         $this->phone = $phone;
         $this->name = $name;
@@ -58,19 +58,19 @@ class app{
 //////////////////////////////////////
 //////////////////////////////////////
 $app = null;
-$incoming_state = trim(@$_REQUEST['state']) ?? "START";
-$incoming_memory = json_decode(trim(@$_REQUEST['memory']),true) ?? [];
+$incoming_state = trim(@$_POST['state']) ?? "START";
+$incoming_memory = json_decode(trim(@$_POST['memory']),true) ?? [];
 if($incoming_state && isset($state_controller[$incoming_state])){
-	$sender = trim(@$_REQUEST['sender']) ?? '';
-    $name = trim(@$_REQUEST['name']) ?? 'Guest';
-	$from = trim(@$_REQUEST['from']) ?? '';
+	$sender = trim(@$_POST['sender']) ?? '';
+    $name = trim(@$_POST['name']) ?? 'Guest';
+	$from = trim(@$_POST['from']) ?? '';
     $app = new app($sender, $from, $name, $incoming_state, $incoming_memory);
     $method_name = $state_controller[$incoming_state];
     if(method_exists($app, $method_name)){
-        $error_msg = $app->$method_name(trim(stripcslashes(@$_REQUEST['message'])) ?? null);
+        $error_msg = $app->$method_name(trim(stripcslashes(@$_POST['message'])) ?? null);
     }else{
         $method_name = @$state_controller["START"];
-        $error_msg =  @$app->$method_name(trim(stripcslashes(@$_REQUEST['message'])) ?? null);
+        $error_msg =  @$app->$method_name(trim(stripcslashes(@$_POST['message'])) ?? null);
     }
 }else{
 	$error_msg =  "Invalid state.";
