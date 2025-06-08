@@ -51,3 +51,30 @@ class bot{
     }
   }
 }
+
+
+//////////////////////////////////////
+//////////////////////////////////////
+/////////// DO NOT EDIT BELOW LINE ///
+//////////////////////////////////////
+//////////////////////////////////////
+$app = null;
+$incoming_state = trim(@$_REQUEST['state']) ?? "START";
+$incoming_memory = json_decode(trim(@$_REQUEST['memory']),true) ?? [];
+if($incoming_state && isset($state_controller[$incoming_state])){
+	$sender = trim(@$_REQUEST['sender']) ?? '';
+    $name = trim(@$_REQUEST['name']) ?? 'Guest';
+	$from = trim(@$_REQUEST['from']) ?? '';
+    $app = new app($sender, $from, $name, $incoming_state, $incoming_memory);
+    $method_name = $state_controller[$incoming_state];
+    if(method_exists($app, $method_name)){
+        $error_msg = $app->$method_name(trim(stripcslashes(@$_REQUEST['message'])) ?? null);
+    }else{
+        $method_name = @$state_controller["START"];
+        $error_msg =  @$app->$method_name(trim(stripcslashes(@$_REQUEST['message'])) ?? null);
+    }
+}else{
+	$error_msg =  "Invalid state.";
+}
+header('Content-Type: application/json');
+echo json_encode(["state" => @$app->state, "message" => @$app->message, "memory"=>@$app->memory, "api"=>@$app->api, "error"=>@$error_msg]);
