@@ -1,11 +1,11 @@
 <?php
 $state_controller = [
     "START" => "start_bot", //START is Required
-	  "AUTH" => "authenticate",
-	  "MAIN" => "main_menu",
+	"AUTH" => "authenticate",
+	"MAIN" => "main_menu",
 ];
 
-class bot{
+class app{
     public $sender;
     public $phone; //User phone number
     private $name; //User display name
@@ -14,8 +14,8 @@ class bot{
     public $message; //Output message
 	
     public function __construct($sender, $phone, $name, $state, $memory){
-	$this->memory = $memory;
-	$this->state = $state;
+		$this->memory = $memory;
+		$this->state = $state;
         $this->sender = $sender;
         $this->phone = $phone;
         $this->name = $name;
@@ -34,14 +34,14 @@ class bot{
           $this->state = "AUTH";
         }
     }
-  private function authenticate(*$message*){
+  private function authenticate($message){
     if($message == 1){
       $his->message = "Logged in!";
     }else{
       $his->message = "Invalid response";
     }
   }
-  private function main_menu(*$message*){
+  private function main_menu($message){
     if($message == 1){
       $his->message = "Logged in!";
     }elseif($message == 2){
@@ -51,7 +51,6 @@ class bot{
     }
   }
 }
-
 
 //////////////////////////////////////
 //////////////////////////////////////
@@ -78,3 +77,4 @@ if($incoming_state && isset($state_controller[$incoming_state])){
 }
 header('Content-Type: application/json');
 echo json_encode(["state" => @$app->state, "message" => @$app->message, "memory"=>@$app->memory, "api"=>@$app->api, "error"=>@$error_msg]);
+?>
